@@ -28,9 +28,15 @@ verifier:
     - inputs.yml
 
 platforms:
-- name: ubuntu-16.04
+- name: ubuntu-16.04-couchbase-enterprise-6.0.2
   driver_config:
     image: couchbase:enterprise-6.0.2
+    platform: ubuntu
+    run_command: /sbin/init
+
+- name: ubuntu-16.04-couchbase-enterprise-6.6.0
+  driver_config:
+    image: couchbase:latest
     platform: ubuntu
     run_command: /sbin/init
    
@@ -41,7 +47,7 @@ suites:
     verifier:
       reporter:
         - cli
-        - json:spec/results/hardened-test-result.json
+        - json:spec/results/%platform-hardened-test-result.json
 
   - name: vanilla
     provisioner:
@@ -49,7 +55,7 @@ suites:
     verifier:
       reporter:
         - cli
-        - json:spec/results/vanilla-test-result.json
+        - json:spec/results/%platform-vanilla-test-result.json
 
     
 
